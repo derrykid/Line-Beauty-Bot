@@ -21,11 +21,14 @@ public class LineTestBotApplication {
 
 	@EventMapping
 	public Message handleTextMessage(MessageEvent<TextMessageContent> event){
+
+		return new TextMessage("Hello");
+	}
+
+	@EventMapping
+	public void log(MessageEvent<TextMessageContent> event){
 		log.info("Event: " + event);
-
 		System.out.println("Event Log: " + event);
-
-		return new TextMessage(event.getMessage().getText());
 	}
 
 }
