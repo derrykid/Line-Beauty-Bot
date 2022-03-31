@@ -23,6 +23,8 @@ public class LineTestBotApplication {
 	public Message handleTextMessage(MessageEvent<TextMessageContent> event){
 		log.info("Event: " + event);
 
+		System.out.println("Event Log: " + event);
+
 		return new TextMessage(event.getMessage().getText());
 	}
 
