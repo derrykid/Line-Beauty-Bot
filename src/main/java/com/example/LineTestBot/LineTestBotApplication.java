@@ -42,10 +42,16 @@ public class LineTestBotApplication {
 		String replyToken = event.getReplyToken();
 
 		// Textmessage echo bot with extra emoji
-		TextMessage.Emoji emoji = TextMessage.Emoji.builder().productId("5ac21c4e031a6752fb806d5b").emojiId("009").build();
+		TextMessage.Emoji emoji = TextMessage.Emoji.builder().productId("5ac21a18040ab15980c9b43e").emojiId("070").build();
 		List<TextMessage.Emoji> emojiList = new ArrayList<>();
 		emojiList.add(emoji);
-		TextMessage msg = TextMessage.builder().text(event.getMessage().getText()).emojis(emojiList).build();
+
+		StringBuilder replyMessage = new StringBuilder();
+		String text = event.getMessage().getText();
+
+		replyMessage.append(text).append("(spade)");
+
+		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).emojis(emojiList).build();
 
 
 		return msg;
