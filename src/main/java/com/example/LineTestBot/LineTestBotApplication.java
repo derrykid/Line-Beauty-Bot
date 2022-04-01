@@ -50,10 +50,11 @@ public class LineTestBotApplication {
 		replyMessage.append(text).append("(spade)");
 
 //		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).emojis(emojiList).build();
-		TextMessage msg = TextMessage.builder().text(event.getMessage().getText()).quickReply(null).sender(null).emojis(null).build();
+//		TextMessage msg = TextMessage.builder().text(event.getMessage().getText()).quickReply(null).sender(null).emojis(null).build();
 
 
-		return msg;
+
+		return new TextMessage(event.getMessage().getText());
 
 
 	}
