@@ -39,22 +39,21 @@ public class LineTestBotApplication {
 	public Message handleTextMessage(MessageEvent<TextMessageContent> event){
 		log(event);
 
-//		// Textmessage echo bot with extra emoji
-//		TextMessage.Emoji emoji = TextMessage.Emoji.builder().productId("5ac21a18040ab15980c9b43e").emojiId("070").build();
-//		List<TextMessage.Emoji> emojiList = new ArrayList<>();
-//		emojiList.add(emoji);
-//
-//		StringBuilder replyMessage = new StringBuilder();
-//		String text = event.getMessage().getText();
-//
-//		replyMessage.append(text).append("(spade)");
-//
-//		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).emojis(emojiList).build();
+		// Textmessage echo bot with extra emoji
+		TextMessage.Emoji emoji = TextMessage.Emoji.builder().productId("5ac21a18040ab15980c9b43e").emojiId("070").build();
+		List<TextMessage.Emoji> emojiList = new ArrayList<>();
+		emojiList.add(emoji);
+
+		StringBuilder replyMessage = new StringBuilder();
+		String text = event.getMessage().getText();
+
+		replyMessage.append(text).append("(spade)");
+
+		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).emojis(emojiList).build();
 
 
-//		return msg;
+		return msg;
 
-		return new TextMessage("Hahahaha test");
 
 	}
 
