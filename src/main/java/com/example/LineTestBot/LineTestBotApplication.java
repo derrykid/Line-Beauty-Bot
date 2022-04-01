@@ -2,6 +2,7 @@ package com.example.LineTestBot;
 
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
+import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
@@ -19,6 +20,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 @LineMessageHandler
@@ -36,7 +39,14 @@ public class LineTestBotApplication {
 	public Message handleTextMessage(MessageEvent<TextMessageContent> event){
 		log(event);
 
-		TextMessage msg = new TextMessage(event.getMessage().getText());
+		String replyToken = event.getReplyToken();
+
+		// Textmessage echo bot with extra emoji
+		TextMessage.Emoji emoji = TextMessage.Emoji.builder().productId("5ac21c4e031a6752fb806d5b").emojiId("009").build();
+		List<TextMessage.Emoji> emojiList = new ArrayList<>();
+		emojiList.add(emoji);
+		TextMessage msg = TextMessage.builder().text(event.getMessage().getText()).emojis(emojiList).build();
+
 
 		return msg;
 
