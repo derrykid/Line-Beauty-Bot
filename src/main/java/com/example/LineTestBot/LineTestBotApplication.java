@@ -44,17 +44,14 @@ public class LineTestBotApplication {
 		List<TextMessage.Emoji> emojiList = new ArrayList<>();
 		emojiList.add(emoji);
 
-		StringBuilder replyMessage = new StringBuilder();
-		String text = event.getMessage().getText();
+		StringBuilder replyMessage = new StringBuilder("$ ");
+		replyMessage.append(event.getMessage().getText());
 
-		replyMessage.append(text).append("(spade)");
 
 //		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).emojis(emojiList).build();
-//		TextMessage msg = TextMessage.builder().text(event.getMessage().getText()).quickReply(null).sender(null).emojis(null).build();
+		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).quickReply(null).sender(null).emojis(emojiList).build();
 
-
-
-		return new TextMessage(event.getMessage().getText());
+		return msg;
 
 
 	}
