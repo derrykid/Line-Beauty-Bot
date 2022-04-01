@@ -26,22 +26,19 @@ import javax.annotation.PostConstruct;
 @Slf4j
 public class LineTestBotApplication {
 
-	@Value("${line.bot.channel-token}")
-	private String channel_token;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LineTestBotApplication.class, args);
 	}
 
 
-
 	@EventMapping
-	public void handleTextMessage(MessageEvent<TextMessageContent> event){
+	public Message handleTextMessage(MessageEvent<TextMessageContent> event){
 		log(event);
 
-		final LineMessagingClient lineMessagingClient = LineMessagingClient.builder(channel_token).build();
+		TextMessage msg = new TextMessage(event.getMessage().getText());
 
-		lineMessagingClient.pushMessage(new PushMessage(event.getSource().getUserId(), new TextMessage("Hello, some update")));
+		return msg;
 
 	}
 
