@@ -25,8 +25,6 @@ import org.springframework.core.env.Environment;
 public class LineTestBotApplication {
 
 	private String channel_token = "N6UpY0AcuaoeOd4g3YYL3DNqXF8tzIGcaXZ4oAWF8Wa+S4tIwhbufl15UCkS+am82kxgM8rBnRyXwgwYhIY1hmu+kh8NCckUZNRImthycZFA7dv5Oljwns8e117Bon2rOfM+uyfe84vSjk+Y7tkBigdB04t89/1O/w1cDnyilFU=";
-	@Autowired
-	private final LineMessagingClient lineMessagingClient;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LineTestBotApplication.class, args);
@@ -38,6 +36,8 @@ public class LineTestBotApplication {
 	@EventMapping
 	public void handleTextMessage(MessageEvent<TextMessageContent> event){
 		log(event);
+
+		final LineMessagingClient lineMessagingClient = LineMessagingClient.builder(channel_token).build();
 
 		lineMessagingClient.pushMessage(new PushMessage(event.getSource().getUserId(), new TextMessage("Hello, some update")));
 
