@@ -1,5 +1,6 @@
 package com.example.LineTestBot;
 
+import com.example.LineTestBot.Message.GameSet;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.ReplyMessage;
@@ -47,9 +48,14 @@ public class LineTestBotApplication {
 		StringBuilder replyMessage = new StringBuilder("$ ");
 		replyMessage.append(event.getMessage().getText());
 
-
-//		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).emojis(emojiList).build();
 		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).quickReply(null).sender(null).emojis(emojiList).build();
+
+		double userId = Double.parseDouble(event.getSource().getUserId());
+		GameSet game = new GameSet(userId, "Poker");
+
+		if(event.getMessage().getText().equals("/getgame")){
+			return new TextMessage(game.toString());
+		}
 
 		return msg;
 
