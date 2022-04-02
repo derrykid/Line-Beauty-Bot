@@ -1,10 +1,10 @@
 package com.example.LineTestBot.Message;
 
 public class GameSet {
-    private double gameId;
+    private int gameId;
     private String gameName;
 
-    public GameSet(double id, String gameName){
+    public GameSet(int id, String gameName){
         this.gameId = id;
         this.gameName = gameName;
     }
@@ -17,11 +17,11 @@ public class GameSet {
                 '}';
     }
 
-    public double getGameId() {
+    public int getGameId() {
         return gameId;
     }
 
-    public void setGameId(double gameId) {
+    public void setGameId(int gameId) {
         this.gameId = gameId;
     }
 

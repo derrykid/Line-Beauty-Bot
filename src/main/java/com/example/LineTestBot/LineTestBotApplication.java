@@ -50,8 +50,9 @@ public class LineTestBotApplication {
 
 		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).quickReply(null).sender(null).emojis(emojiList).build();
 
-		double userId = Double.parseDouble(event.getSource().getUserId());
-		GameSet game = new GameSet(userId, "Poker");
+		String userId = event.getSource().getUserId();
+		int gameId = userId.hashCode();
+		GameSet game = new GameSet(gameId, "Poker");
 
 		if(event.getMessage().getText().equals("/getgame")){
 			return new TextMessage(game.toString());
