@@ -40,26 +40,9 @@ public class LineTestBotApplication {
 	public Message handleTextMessage(MessageEvent<TextMessageContent> event){
 		log(event);
 
-		// Textmessage echo bot with extra emoji
-		TextMessage.Emoji emoji = TextMessage.Emoji.builder().productId("5ac21a18040ab15980c9b43e").emojiId("070").build();
-		List<TextMessage.Emoji> emojiList = new ArrayList<>();
-		emojiList.add(emoji);
+		String msg = event.getSource().getSenderId();
 
-		StringBuilder replyMessage = new StringBuilder("$ ");
-		replyMessage.append(event.getMessage().getText());
-
-		TextMessage msg = TextMessage.builder().text(replyMessage.toString()).quickReply(null).sender(null).emojis(emojiList).build();
-
-		String userId = event.getSource().getUserId();
-		int gameId = userId.hashCode();
-		GameSet game = new GameSet(gameId, "Poker");
-
-		if(event.getMessage().getText().equals("/getgame")){
-			return new TextMessage(game.toString());
-		}
-
-		return msg;
-
+		return new TextMessage(msg);
 
 	}
 
