@@ -40,9 +40,18 @@ public class LineTestBotApplication {
 	public Message handleTextMessage(MessageEvent<TextMessageContent> event){
 		log(event);
 
-		String msg = event.getSource().getSenderId();
+		String command = event.getMessage().getText();
 
-		return new TextMessage(msg);
+		if (command.equalsIgnoreCase("group")) {
+			return new TextMessage("It's group ID " + event.getSource().getSenderId());
+		} else if (command.equalsIgnoreCase("user")) {
+			return new TextMessage("It's user ID " + event.getSource().getUserId());
+		} else if (command.equalsIgnoreCase("source")){
+			return new TextMessage("It's get source: " +event.getSource().toString());
+		} else {
+			return new TextMessage("It's default");
+		}
+
 
 	}
 
