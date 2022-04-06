@@ -25,6 +25,7 @@ import java.util.concurrent.ExecutionException;
 public class LineTestBotApplication {
 
     static String derryID = "U3f3dc951e3cfb83333415a2df55f0fe1";
+    static String anotherID = "Uc9e70cd5e5c151598d1c8fb58c7dbc3d";
 
     public static void main(String[] args) {
         SpringApplication.run(LineTestBotApplication.class, args);
@@ -51,7 +52,7 @@ public class LineTestBotApplication {
         String userName = getUserName(event);
 
         final TextMessage textMessage = new TextMessage("This is your display name: " + userName);
-        final PushMessage pushMessage = new PushMessage(derryID, textMessage);
+        final PushMessage pushMessage = new PushMessage(event.getSource().getUserId(), textMessage);
 
         final BotApiResponse botApiResponse;
         try {
