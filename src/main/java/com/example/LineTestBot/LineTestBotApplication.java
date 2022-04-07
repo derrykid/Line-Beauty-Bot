@@ -5,6 +5,7 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.profile.UserProfileResponse;
@@ -36,12 +37,13 @@ public class LineTestBotApplication {
     public Message handleTextMessage(MessageEvent<TextMessageContent> event) {
         log(event);
 
-        if (event.getMessage().getText().equalsIgnoreCase("push")) {
-            pushMessage(event);
-            return null;
-        }
+        Source source = event.getSource();
+        String userID = source.getUserId();
+        String groupID = source.getSenderId();
 
-        return new TextMessage("Default");
+        return new TextMessage("User ID:" + userID + "\n" +
+                "Group ID: " + groupID);
+
     }
 
     public static void pushMessage(MessageEvent<TextMessageContent> event) {
@@ -89,7 +91,7 @@ public class LineTestBotApplication {
             return "";
         }
 
-        return "DisplayName method:" + userProfileResponse.getDisplayName() + "\n" ;
+        return "DisplayName method:" + userProfileResponse.getDisplayName() + "\n";
     }
 
 
