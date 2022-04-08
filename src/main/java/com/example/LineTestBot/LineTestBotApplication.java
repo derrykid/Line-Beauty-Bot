@@ -43,6 +43,8 @@ public class LineTestBotApplication {
 
         pushMsg pushMsg = new pushMsg();
         pushMsg.run();
+        pushMsg.wait(3000L);
+        pushMsg.run();
 
         return new TextMessage("Alive");
 
