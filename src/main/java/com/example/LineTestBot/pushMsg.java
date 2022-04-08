@@ -64,7 +64,8 @@ public class pushMsg implements Runnable {
         LineMessagingClient client = LineMessagingClient.builder(token).build();
 
 
-        final TextMessage textMessage = new TextMessage("Push ya");
+        final TextMessage textMessage = new TextMessage(msg);
+        System.out.println("Hi Mom");
         final PushMessage pushMessage = new PushMessage(groupID, textMessage);
 
         final BotApiResponse botApiResponse;
