@@ -43,12 +43,7 @@ public class LineTestBotApplication {
     public Message handleTextMessage(MessageEvent<TextMessageContent> event) throws URISyntaxException, IOException, InterruptedException {
 
 
-        String requestURI = "https://api.pokerapi.dev/v1/winner/texas_holdem?cc=AC,KD,QH,JS,7C&pc[]=10S,8C&pc[]=3S,2C";
-        HttpRequest request = HttpRequest.newBuilder().uri(new URI(requestURI.toString())).GET().build();
-        HttpClient client = HttpClient.newBuilder().build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        return new TextMessage(response.body());
+        return new TextMessage("hello");
     }
 
 
