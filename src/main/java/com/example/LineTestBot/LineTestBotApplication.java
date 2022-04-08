@@ -81,7 +81,7 @@ public class LineTestBotApplication {
             LineMessagingClient client = LineMessagingClient.builder(token).build();
 
 
-            final TextMessage textMessage = new TextMessage(msg);
+            final TextMessage textMessage = new TextMessage("push to ya");
             final PushMessage pushMessage = new PushMessage(groupID, textMessage);
 
             final BotApiResponse botApiResponse;
