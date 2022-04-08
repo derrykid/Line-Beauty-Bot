@@ -39,6 +39,8 @@ public class LineTestBotApplication {
 
     @EventMapping
     public Message handleTextMessage(MessageEvent<TextMessageContent> event)  throws URISyntaxException, IOException, InterruptedException{
+        log.info("event: " + event);
+
         String targetURL =  "https://api.pokerapi.dev/v1/winner/texas_holdem?cc=AC,KD,QH,JS,7C&pc[]=10S,8C&pc[]=3S,2C";
         try {
             URL url = new URL( targetURL );
@@ -68,7 +70,7 @@ public class LineTestBotApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return new TextMessage("This is hereee");
     }
 
 
