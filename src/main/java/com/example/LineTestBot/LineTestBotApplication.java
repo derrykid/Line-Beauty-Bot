@@ -17,12 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication
@@ -40,12 +34,65 @@ public class LineTestBotApplication {
 
 
     @EventMapping
-    public Message handleTextMessage(MessageEvent<TextMessageContent> event) throws URISyntaxException, IOException, InterruptedException {
+    public Message handleTextMessage(MessageEvent<TextMessageContent> event) {
+        log(event);
 
+        Source source = event.getSource();
+        String userID = source.getUserId();
+        String groupID = source.getSenderId();
 
-        return new TextMessage("hello");
+        return new TextMessage("User ID:" + userID + "\n" +
+                "Group ID: " + groupID);
+
     }
 
+    public static void pushMessage(MessageEvent<TextMessageContent> event) {
+        final LineMessagingClient client = LineMessagingClient
+                .builder("N6UpY0AcuaoeOd4g3YYL3DNqXF8tzIGcaXZ4oAWF8Wa+S4tIwhbufl15UCkS+am82kxgM8rBnRyXwgwYhIY1hmu+kh8NCckUZNRImthycZFA7dv5Oljwns8e117Bon2rOfM+uyfe84vSjk+Y7tkBigdB04t89/1O/w1cDnyilFU=")
+                .build();
+
+        String userName = getUserName(event);
+
+        final TextMessage textMessage = new TextMessage("This is your display name: " + userName);
+        final PushMessage pushMessage = new PushMessage(event.getSource().getUserId(), textMessage);
+
+        final BotApiResponse botApiResponse;
+        try {
+            botApiResponse = client.pushMessage(pushMessage).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+//		final LineMessagingClient clientWithBear = LineMessagingClient
+//				.builder("Bearer N6UpY0AcuaoeOd4g3YYL3DNqXF8tzIGcaXZ4oAWF8Wa+S4tIwhbufl15UCkS+am82kxgM8rBnRyXwgwYhIY1hmu+kh8NCckUZNRImthycZFA7dv5Oljwns8e117Bon2rOfM+uyfe84vSjk+Y7tkBigdB04t89/1O/w1cDnyilFU=")
+//						.build();
+//
+//		final PushMessage push = new PushMessage(userID, new TextMessage("I need bearer QQ!"));
+//		final BotApiResponse botApiResponse1;
+//		try {
+//			botApiResponse1 = client.pushMessage(push).get();
+//		} catch (InterruptedException | ExecutionException e) {
+//			e.printStackTrace();
+//			return;
+//		}
+
+    }
+
+    private static String getUserName(MessageEvent<TextMessageContent> event) {
+        final LineMessagingClient client = LineMessagingClient
+                .builder("N6UpY0AcuaoeOd4g3YYL3DNqXF8tzIGcaXZ4oAWF8Wa+S4tIwhbufl15UCkS+am82kxgM8rBnRyXwgwYhIY1hmu+kh8NCckUZNRImthycZFA7dv5Oljwns8e117Bon2rOfM+uyfe84vSjk+Y7tkBigdB04t89/1O/w1cDnyilFU=")
+                .build();
+
+        final UserProfileResponse userProfileResponse;
+        try {
+            userProfileResponse = client.getProfile(event.getSource().getUserId()).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return "";
+        }
+
+        return "DisplayName method:" + userProfileResponse.getDisplayName() + "\n";
+    }
 
 
     public static void log(MessageEvent<TextMessageContent> event) {
