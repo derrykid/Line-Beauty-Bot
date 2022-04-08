@@ -19,6 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
@@ -37,7 +38,7 @@ public class LineTestBotApplication {
 
 
     @EventMapping
-    public Message handleTextMessage(MessageEvent<TextMessageContent> event) {
+    public Message handleTextMessage(MessageEvent<TextMessageContent> event)  throws URISyntaxException, IOException, InterruptedException{
         String targetURL =  "https://api.pokerapi.dev/v1/winner/texas_holdem?cc=AC,KD,QH,JS,7C&pc[]=10S,8C&pc[]=3S,2C";
         try {
             URL url = new URL( targetURL );
