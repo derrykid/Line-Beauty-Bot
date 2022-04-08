@@ -17,6 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication
@@ -35,64 +38,36 @@ public class LineTestBotApplication {
 
     @EventMapping
     public Message handleTextMessage(MessageEvent<TextMessageContent> event) {
-        log(event);
-
-        Source source = event.getSource();
-        String userID = source.getUserId();
-        String groupID = source.getSenderId();
-
-        return new TextMessage("User ID:" + userID + "\n" +
-                "Group ID: " + groupID);
-
-    }
-
-    public static void pushMessage(MessageEvent<TextMessageContent> event) {
-        final LineMessagingClient client = LineMessagingClient
-                .builder("N6UpY0AcuaoeOd4g3YYL3DNqXF8tzIGcaXZ4oAWF8Wa+S4tIwhbufl15UCkS+am82kxgM8rBnRyXwgwYhIY1hmu+kh8NCckUZNRImthycZFA7dv5Oljwns8e117Bon2rOfM+uyfe84vSjk+Y7tkBigdB04t89/1O/w1cDnyilFU=")
-                .build();
-
-        String userName = getUserName(event);
-
-
-        final TextMessage textMessage = new TextMessage("This is your display name: " + userName);
-        final PushMessage pushMessage = new PushMessage(event.getSource().getUserId(), textMessage);
-
-        final BotApiResponse botApiResponse;
+        String targetURL =  "https://api.pokerapi.dev/v1/winner/texas_holdem?cc=AC,KD,QH,JS,7C&pc[]=10S,8C&pc[]=3S,2C";
         try {
-            botApiResponse = client.pushMessage(pushMessage).get();
-        } catch (InterruptedException | ExecutionException e) {
+            URL url = new URL( targetURL );
+            HttpURLConnection connection = (HttpURLConnection) url
+                    .openConnection();
+            /* 3. 設定請求引數（過期時間，輸入、輸出流、訪問方式），以流的形式進行連線 */
+            connection.setDoOutput(false);
+            connection.setDoInput(true);
+            connection.setRequestMethod("GET");
+            connection.setUseCaches(true);
+            connection.setInstanceFollowRedirects(true);
+            connection.connect();
+            int code = connection.getResponseCode();
+            String msg = "";
+            if (code == 200) { // 正常響應
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream()));
+                String line = null;
+
+                while ((line = reader.readLine()) != null) { // 迴圈從流中讀取
+                    msg += line + "\n";
+                }
+                reader.close(); // 關閉流
+            }
+            connection.disconnect();
+            return new TextMessage(msg);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-//		final LineMessagingClient clientWithBear = LineMessagingClient
-//				.builder("Bearer N6UpY0AcuaoeOd4g3YYL3DNqXF8tzIGcaXZ4oAWF8Wa+S4tIwhbufl15UCkS+am82kxgM8rBnRyXwgwYhIY1hmu+kh8NCckUZNRImthycZFA7dv5Oljwns8e117Bon2rOfM+uyfe84vSjk+Y7tkBigdB04t89/1O/w1cDnyilFU=")
-//						.build();
-//
-//		final PushMessage push = new PushMessage(userID, new TextMessage("I need bearer QQ!"));
-//		final BotApiResponse botApiResponse1;
-//		try {
-//			botApiResponse1 = client.pushMessage(push).get();
-//		} catch (InterruptedException | ExecutionException e) {
-//			e.printStackTrace();
-//			return;
-//		}
-
-    }
-
-    private static String getUserName(MessageEvent<TextMessageContent> event) {
-        final LineMessagingClient client = LineMessagingClient
-                .builder("N6UpY0AcuaoeOd4g3YYL3DNqXF8tzIGcaXZ4oAWF8Wa+S4tIwhbufl15UCkS+am82kxgM8rBnRyXwgwYhIY1hmu+kh8NCckUZNRImthycZFA7dv5Oljwns8e117Bon2rOfM+uyfe84vSjk+Y7tkBigdB04t89/1O/w1cDnyilFU=")
-                .build();
-
-        final UserProfileResponse userProfileResponse;
-        try {
-            userProfileResponse = client.getProfile(event.getSource().getUserId()).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            return "";
-        }
-
-        return "DisplayName method:" + userProfileResponse.getDisplayName() + "\n";
+        return null;
     }
 
 
