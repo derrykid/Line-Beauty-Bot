@@ -18,6 +18,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
@@ -45,8 +46,10 @@ public class LineTestBotApplication {
         pushMsg pushMsg = new pushMsg();
         pushMsg.run();
 
-        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-        System.out.println("thread size: " + threadSet.size());
+        if (event.getMessage().getText().equalsIgnoreCase("get")){
+            ArrayList<String> reponse = com.example.LineTestBot.pushMsg.getResponse();
+            return new TextMessage(reponse.toString());
+        }
 
         return new TextMessage("Alive");
 
