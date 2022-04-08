@@ -47,6 +47,8 @@ public class pushMsg implements Runnable {
                 reader.close(); // 關閉流
             }
             connection.disconnect();
+            System.out.println("Connection disconnetec");
+            System.out.println(msg);
             push(msg);
         } catch (IOException e) {
             e.printStackTrace();
