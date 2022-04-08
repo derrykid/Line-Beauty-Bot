@@ -66,7 +66,7 @@ public class LineTestBotApplication {
                 reader.close(); // 關閉流
             }
             connection.disconnect();
-            return new TextMessage("hahaha");
+            return new TextMessage("yo" + msg);
         } catch (IOException e) {
             e.printStackTrace();
             return new TextMessage("This is hereee");
