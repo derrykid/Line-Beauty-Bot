@@ -53,6 +53,7 @@ public class LineTestBotApplication {
 
         String userName = getUserName(event);
 
+
         final TextMessage textMessage = new TextMessage("This is your display name: " + userName);
         final PushMessage pushMessage = new PushMessage(event.getSource().getUserId(), textMessage);
 
