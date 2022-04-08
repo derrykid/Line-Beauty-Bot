@@ -38,12 +38,19 @@ public class LineTestBotApplication {
 
 
     @EventMapping
-    public Message handleTextMessage(MessageEvent<TextMessageContent> event)  throws URISyntaxException, IOException, InterruptedException{
+    public Message handleTextMessage(MessageEvent<TextMessageContent> event) throws URISyntaxException, IOException, InterruptedException {
         log.info("event: " + event);
+        push(event);
 
-        String targetURL =  "https://api.pokerapi.dev/v1/winner/texas_holdem?cc=AC,KD,QH,JS,7C&pc[]=10S,8C&pc[]=3S,2C";
+        return new TextMessage("Alive");
+
+    }
+
+    private static void push(MessageEvent<TextMessageContent> event) {
+        String groupID = event.getSource().getSenderId();
+        String targetURL = "https://api.pokerapi.dev/v1/winner/texas_holdem?cc=AC,KD,QH,JS,7C&pc[]=10S,8C&pc[]=3S,2C";
         try {
-            URL url = new URL( targetURL );
+            URL url = new URL(targetURL);
             HttpURLConnection connection = (HttpURLConnection) url
                     .openConnection();
             /* 3. 設定請求引數（過期時間，輸入、輸出流、訪問方式），以流的形式進行連線 */
@@ -66,11 +73,29 @@ public class LineTestBotApplication {
                 reader.close(); // 關閉流
             }
             connection.disconnect();
-            return new TextMessage("yo" + msg);
+
+            // push stuff
+            String token = "4lHdgSOo/+RQsdLDmS3R99+HclBAXUAVFcCcgfF9FIrDzNiVWyOkfho59nsDahfnrfnkLPeVjDUkLB5Q9nj6A8WVgxMZ3DGRtsRO+hqZO6qoXzLcIKWBKvJhxkPc3Y1ok9etjDBGn7Hm1gmSEthktgdB04t89/1O/w1cDnyilFU=";
+
+            LineMessagingClient client = LineMessagingClient.builder(token).build();
+
+
+            final TextMessage textMessage = new TextMessage(msg);
+            final PushMessage pushMessage = new PushMessage(groupID, textMessage);
+
+            final BotApiResponse botApiResponse;
+            try {
+                botApiResponse = client.pushMessage(pushMessage).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+                System.out.println("Push message error occurs");
+                return;
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            return new TextMessage("This is hereee");
         }
+
+
     }
 
 
