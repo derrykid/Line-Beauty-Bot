@@ -47,24 +47,7 @@ public class pushMsg implements Runnable {
                 reader.close(); // 關閉流
             }
             connection.disconnect();
-
-            // push stuff
-            String token = test_token;
-
-            LineMessagingClient client = LineMessagingClient.builder(token).build();
-
-
-            final TextMessage textMessage = new TextMessage(msg);
-            final PushMessage pushMessage = new PushMessage(groupID, textMessage);
-
-            final BotApiResponse botApiResponse;
-            try {
-                botApiResponse = client.pushMessage(pushMessage).get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-                System.out.println("Push message error occurs");
-                return;
-            }
+            push(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,4 +55,28 @@ public class pushMsg implements Runnable {
 
 
     }
+
+    private static void push(String msg){
+        // push stuff
+        String groupID = LineTestBotApplication.groupID;
+        String token = test_token;
+
+        LineMessagingClient client = LineMessagingClient.builder(token).build();
+
+
+        final TextMessage textMessage = new TextMessage(msg);
+        final PushMessage pushMessage = new PushMessage(groupID, textMessage);
+
+        final BotApiResponse botApiResponse;
+        try {
+            botApiResponse = client.pushMessage(pushMessage).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            System.out.println("Push message error occurs");
+            return;
+        }
+
+    }
 }
+
+// one another way: save it to map and retreive later
