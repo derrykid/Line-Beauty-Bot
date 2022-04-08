@@ -18,6 +18,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication
@@ -43,6 +44,9 @@ public class LineTestBotApplication {
 
         pushMsg pushMsg = new pushMsg();
         pushMsg.run();
+
+        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+        System.out.println("thread size: " + threadSet.size());
 
         return new TextMessage("Alive");
 
