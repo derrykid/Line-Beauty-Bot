@@ -14,7 +14,7 @@
 	<name>Line-Test-Bot</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -37,32 +37,32 @@
 		<dependency>
 			<groupId>com.linecorp.bot</groupId>
 			<artifactId>line-bot-parser</artifactId>
-			<version>4.3.0</version>
+			<version>4.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.linecorp.bot</groupId>
 			<artifactId>line-bot-spring-boot</artifactId>
-			<version>4.3.0</version>
+			<version>4.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.linecorp.bot</groupId>
 			<artifactId>line-bot-servlet</artifactId>
-			<version>4.3.0</version>
+			<version>4.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.linecorp.bot</groupId>
 			<artifactId>line-bot-model</artifactId>
-			<version>4.3.0</version>
+			<version>4.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.linecorp.bot</groupId>
 			<artifactId>line-bot-api-client</artifactId>
-			<version>4.3.0</version>
+			<version>4.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.linecorp.bot</groupId>
 			<artifactId>line-bot-cli</artifactId>
-			<version>4.3.0</version>
+			<version>4.7.0</version>
 		</dependency>
 
 

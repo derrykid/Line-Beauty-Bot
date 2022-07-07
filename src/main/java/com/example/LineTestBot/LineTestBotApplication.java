@@ -28,38 +28,16 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 public class LineTestBotApplication {
 
-    static String derryID = "U3f3dc951e3cfb83333415a2df55f0fe1";
-    static String anotherID = "Uc9e70cd5e5c151598d1c8fb58c7dbc3d";
-    static String test_token = "N6UpY0AcuaoeOd4g3YYL3DNqXF8tzIGcaXZ4oAWF8Wa+S4tIwhbufl15UCkS+am82kxgM8rBnRyXwgwYhIY1hmu+kh8NCckUZNRImthycZFA7dv5Oljwns8e117Bon2rOfM+uyfe84vSjk+Y7tkBigdB04t89/1O/w1cDnyilFU=";
-    static String groupID;
-
     public static void main(String[] args) {
         SpringApplication.run(LineTestBotApplication.class, args);
     }
 
 
     @EventMapping
-    public Message handleTextMessage(MessageEvent<TextMessageContent> event) throws URISyntaxException, IOException, InterruptedException {
-        log.info("event: " + event);
-        this.groupID = event.getSource().getSenderId();
-
-        pushMsg pushMsg = new pushMsg();
-        pushMsg.run();
-
-        if (event.getMessage().getText().equalsIgnoreCase("get")){
-            ArrayList<String> reponse = com.example.LineTestBot.pushMsg.getResponse();
-            return new TextMessage(reponse.toString());
-        }
-
-        return new TextMessage("Alive");
-
+    public Message handleTextMessage(MessageEvent<TextMessageContent> event) {
+        return new TextMessage(event.getMessage().getText());
     }
 
 
-
-    public static void log(MessageEvent<TextMessageContent> event) {
-        log.info("Event: " + event);
-        System.out.println("Event Log: " + event);
-    }
 
 }
