@@ -53,6 +53,7 @@ public class PttBeauty {
 
         return thePostDocument.getElementById("main-container").select("a").stream()
                 .map(each -> each.attr("abs:href"))
+                .filter(each -> !each.contains("imgur"))
                 .collect(Collectors.toList());
     }
 
