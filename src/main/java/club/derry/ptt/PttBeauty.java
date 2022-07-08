@@ -41,6 +41,8 @@ public class PttBeauty {
         } catch (IOException e) {
             log.info("Connect to previous page fails, {}", e);
         }
+
+        return new ArrayList<>();
     }
 
     private List<String> fetchTheLinksOfPictureInHotPosts(Document document) throws IOException {
