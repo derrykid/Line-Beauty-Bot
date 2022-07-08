@@ -36,7 +36,6 @@ public class Application {
             Routine.registerRoutine(new PttTask(groupId, configPath),
                     24, TimeUnit.HOURS);
         }
-
         return null;
     }
 
