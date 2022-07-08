@@ -37,7 +37,6 @@ public class Application {
             Routine.registerRoutine(new PttTask(groupId, configPath),
                     24, TimeUnit.HOURS);
         }
-
         if (isRegister(groupId) && isUnsubscribe(text)) {
             Routine.onShutDown();
         }
