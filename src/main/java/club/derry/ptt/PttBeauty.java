@@ -24,7 +24,6 @@ public class PttBeauty {
     private static String previousPageSelector = "#action-bar-container > div > div.btn-group.btn-group-paging > a:nth-child(2)";
 
     public List<String> getPictures() {
-        // 5. send the img
         Document pttDoc = null;
         try {
             pttDoc = Jsoup.connect(url).cookie("over18", "1").get();
