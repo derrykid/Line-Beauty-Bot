@@ -4,6 +4,7 @@ import club.derry.config.Config;
 import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.ImageMessage;
+import com.linecorp.bot.model.message.TextMessage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -15,19 +16,25 @@ import java.util.stream.Collectors;
 public class LineServerInteractor {
 
     /**
+     * Send ping regularily
+     * @param configPath
+     * @param groupId: chat room id
+     */
+    public static void sendPing(String configPath, String groupId) {
+        LineMessagingClient client = getClient(configPath);
+        client.pushMessage(new PushMessage(groupId, new TextMessage("Ping!")));
+    }
+
+    /**
      * Send pictures to Chat
      * @param uriList: list of img links
      * @param path: path of config file
      * @param groupId: the chat room unique id
      */
     public static void sendPictures(List<URI> uriList, String path, String groupId) {
-
         LineMessagingClient client = getClient(path);
-
         List<PushMessage> pushMessageList = getPushMessageList(uriList, groupId);
-
         pushMessageList.forEach(client::pushMessage);
-
     }
 
     /**
