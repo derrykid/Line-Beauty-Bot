@@ -41,7 +41,6 @@ public class Application {
         if (isRegister(groupId) && isUnsubscribe(text)) {
             Routine.onShutDown();
         }
-
         return null;
     }
 
