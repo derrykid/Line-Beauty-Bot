@@ -41,7 +41,6 @@ public class PttBeauty {
         } catch (IOException e) {
             log.info("Connect to previous page fails, {}", e);
         }
-
         return new ArrayList<>();
     }
 
