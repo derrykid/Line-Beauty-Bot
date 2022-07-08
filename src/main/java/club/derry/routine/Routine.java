@@ -22,7 +22,7 @@ public class Routine {
      */
     public static void registerRoutine(String groupId, Runnable runnable, int period, TimeUnit timeUnit) {
         if (isRegister(groupId)) {
-            routineService.schedule(runnable, period, timeUnit);
+            routineService.scheduleAtFixedRate(runnable, 0, period, timeUnit);
         }
     }
 
@@ -32,7 +32,7 @@ public class Routine {
      * @return boolean
      */
     private static boolean isRegister(String groupId) {
-        return registerRoutineSet.contains(groupId);
+        return !registerRoutineSet.contains(groupId);
     }
 
 }
