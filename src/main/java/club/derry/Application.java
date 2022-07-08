@@ -6,6 +6,7 @@ import club.derry.routine.Routine;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import lombok.AccessLevel;
@@ -33,10 +34,11 @@ public class Application {
                     24, TimeUnit.HOURS);
         }
 
-        if (isRequired.toLowerCase().contains("/ping")) {
+        if (isRequired.toLowerCase().contains("ping")) {
             String groupId = event.getSource().getSenderId();
-            Routine.registerRoutine(groupId, new PingTask(groupId, configPath),
-                    10, TimeUnit.SECONDS);
+//            Routine.registerRoutine(groupId, new PingTask(groupId, configPath),
+//                    10, TimeUnit.SECONDS);
+            return new TextMessage("Pong");
         }
 
         return null;

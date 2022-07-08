@@ -22,7 +22,7 @@ public class LineServerInteractor {
      */
     public static void sendPing(String configPath, String groupId) {
         LineMessagingClient client = getClient(configPath);
-        client.pushMessage(new PushMessage(groupId, new TextMessage("Ping!")));
+        client.pushMessage(new PushMessage(groupId, new TextMessage("Pong!")));
     }
 
     /**
