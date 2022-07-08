@@ -1,11 +1,12 @@
 package club.derry.routine;
 
-import java.util.HashSet;
-import java.util.concurrent.ConcurrentHashMap;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Routine {
 
     private static ScheduledExecutorService routineService
@@ -20,6 +21,11 @@ public class Routine {
      */
     public static void registerRoutine(Runnable runnable, int period, TimeUnit timeUnit) {
         routineService.scheduleAtFixedRate(runnable, 0, period, timeUnit);
+    }
+
+    public static void onShutDown() {
+        routineService.shutdown();
+        log.info("Shutdown executor service");
     }
 
 }

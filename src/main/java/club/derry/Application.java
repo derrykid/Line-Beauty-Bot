@@ -31,12 +31,28 @@ public class Application {
         log.info("event: {}", event);
 
         String groupId = event.getSource().getSenderId();
+        String text =event.getMessage().getText();
 
-        if (!isRegister(groupId)) {
+        if (!isRegister(groupId) && isSubscribe(text)) {
             Routine.registerRoutine(new PttTask(groupId, configPath),
                     24, TimeUnit.HOURS);
         }
+
+        if (isRegister(groupId) && isUnsubscribe(text)) {
+            Routine.onShutDown();
+        }
+
         return null;
+    }
+
+    private boolean isUnsubscribe(String text) {
+        String cmd =  text.split(" ")[0].substring(1).toLowerCase();
+        return cmd.equalsIgnoreCase("unsubscribe");
+    }
+
+    private boolean isSubscribe(String text) {
+        String cmd =  text.split(" ")[0].substring(1).toLowerCase();
+        return cmd.equalsIgnoreCase("subscribe");
     }
 
     /**
