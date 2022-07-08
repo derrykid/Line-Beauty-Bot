@@ -36,9 +36,8 @@ public class Application {
 
         if (isRequired.toLowerCase().contains("ping")) {
             String groupId = event.getSource().getSenderId();
-//            Routine.registerRoutine(groupId, new PingTask(groupId, configPath),
-//                    10, TimeUnit.SECONDS);
-            return new TextMessage("Pong");
+            Routine.registerRoutine(groupId, new PingTask(groupId, configPath),
+                    10, TimeUnit.SECONDS);
         }
 
         return null;
