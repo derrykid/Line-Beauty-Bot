@@ -29,18 +29,22 @@ public class Application {
 
         String isRequired = event.getMessage().getText();
         if (isRequired.equalsIgnoreCase("/get")) {
-            PttBeauty ptt = new PttBeauty();
+            Runnable pttRunnable = () -> {
+                PttBeauty ptt = new PttBeauty();
 
-            List<URI> uris = ptt.getPictures().stream().map(each -> {
-                try {
-                    return new URI(each);
-                } catch (URISyntaxException e) {
-                    throw new RuntimeException(e);
-                }
-            }).collect(Collectors.toList());
+                List<URI> uris = ptt.getPictures().stream().map(each -> {
+                    try {
+                        return new URI(each);
+                    } catch (URISyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).collect(Collectors.toList());
 
-            String groupId = event.getSource().getSenderId();
-            LineServerInteractor.sendPictures(uris, configPath, groupId);
+                String groupId = event.getSource().getSenderId();
+                LineServerInteractor.sendPictures(uris, configPath, groupId);
+
+            };
+            new Thread(pttRunnable).start();
         }
 
         return null;
