@@ -13,6 +13,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
@@ -22,18 +24,28 @@ public class Application {
 
     private static String configPath = "src/main/resources/application.yml";
 
+    private static Map<String, Boolean> registerMap = new HashMap<>();
+
     @EventMapping
     public Message handleTextMessage(MessageEvent<TextMessageContent> event) {
         log.info("event: {}", event);
 
-        String isRequired = event.getMessage().getText();
+        String groupId = event.getSource().getSenderId();
 
-        if (isRequired.toLowerCase().contains("/get")) {
-            String groupId = event.getSource().getSenderId();
-            Routine.registerRoutine(groupId, new PttTask(groupId, configPath),
+        if (!isRegister(groupId)) {
+            Routine.registerRoutine(new PttTask(groupId, configPath),
                     24, TimeUnit.HOURS);
         }
 
         return null;
+    }
+
+    /**
+     * Check if the chat room has already registered the routine
+     * @param groupId
+     * @return boolean
+     */
+    private static boolean isRegister(String groupId) {
+        return registerMap.containsKey(groupId);
     }
 }

@@ -1,5 +1,6 @@
 package club.derry;
 
+import club.derry.basic.AlarmTask;
 import club.derry.basic.PingTask;
 import club.derry.routine.Routine;
 import org.springframework.boot.SpringApplication;
@@ -11,11 +12,6 @@ import java.util.concurrent.TimeUnit;
 public class SpringBootApp {
     public static void main(String[] args) {
         SpringApplication.run(SpringBootApp.class, args);
-
-        String groupId = "a";
-        String configPath = "src/main/resources/application.yml";
-
-        Routine.registerRoutine(groupId, new PingTask(groupId, configPath),
-                1, TimeUnit.SECONDS);
+        Routine.registerRoutine(new AlarmTask(), 20, TimeUnit.MINUTES);
     }
 }
