@@ -2,3 +2,9 @@ line.bot:
   channel-token: 'your-token'
   channel-secret: 'your-secret'
   handler.path: /callback
+
+ptt:
+  base-url: 'www.ptt.cc'
+  beauty-forum:
+    forum-url: 'https://www.ptt.cc/bbs/Beauty/index.html'
+    previous-page-selector: '#action-bar-container > div > div.btn-group.btn-group-paging > a:nth-child(2)'

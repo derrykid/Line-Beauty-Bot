@@ -1,3 +1,4 @@
+/* (C)2022 */
 package club.derry.config;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -9,17 +10,17 @@ import lombok.Getter;
 @Getter
 public class LineConfig {
 
-    private String channelToken;
-    private String channelSecret;
-    private String handlerPath;
+    private final String channelToken;
+    private final String channelSecret;
+    private final String handlerPath;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    private LineConfig(@JsonProperty("channel-token") String token,
-                       @JsonProperty("channel-secret") String secret,
-                        @JsonProperty("handler.path") String handlerPath) {
+    private LineConfig(
+            @JsonProperty("channel-token") String token,
+            @JsonProperty("channel-secret") String secret,
+            @JsonProperty("handler.path") String handlerPath) {
         this.channelToken = token;
         this.channelSecret = secret;
         this.handlerPath = handlerPath;
     }
-
 }

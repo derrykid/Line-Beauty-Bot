@@ -1,8 +1,8 @@
-package club.derry.ptt.predicate;
-
-import org.jsoup.nodes.Element;
+/* (C)2022 */
+package club.derry.service.ptt.functionalinterface;
 
 import java.util.function.Predicate;
+import org.jsoup.nodes.Element;
 
 public class PostsHave10PlusLikes implements Predicate<Element> {
     @Override
