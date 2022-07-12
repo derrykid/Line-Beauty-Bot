@@ -39,7 +39,7 @@ public class Application {
     }
 
     @GetMapping
-    public String hello() throws IOException {
+    public String getRequest() throws IOException {
         PttBeautyService pttBeautyService = new PttBeautyService(config);
         Map<String, Link> linkMap = pttBeautyService.getLinkMap();
 
