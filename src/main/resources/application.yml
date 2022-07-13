@@ -1,6 +1,6 @@
 line.bot:
-  channel-token: 'N6UpY0AcuaoeOd4g3YYL3DNqXF8tzIGcaXZ4oAWF8Wa+S4tIwhbufl15UCkS+am82kxgM8rBnRyXwgwYhIY1hmu+kh8NCckUZNRImthycZFA7dv5Oljwns8e117Bon2rOfM+uyfe84vSjk+Y7tkBigdB04t89/1O/w1cDnyilFU='
-  channel-secret: 'dffa9d384e30b080ca828e35830f7e0d'
+  channel-token: 'your-token'
+  channel-secret: 'your-secret'
   handler.path: /callback
 
 ptt:
