@@ -40,5 +40,8 @@ Click the api link will send a request to the heroku server. In response, you wi
 2. origin post url
 3. instagram link (if origin post provides)
 
+## demo
+<img src="./demo.gif" width="200">
+
 ## Bot QR code - demo
 ![QR-Code](./qr-code.png) 
