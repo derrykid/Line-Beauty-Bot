@@ -12,19 +12,27 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+
 import java.io.IOException;
 import java.util.Map;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/** Accept the user event, check for subscription */
+/**
+ * Accept the user event, check for subscription
+ */
 @LineMessageHandler
 @Slf4j
 @RestController
 public class Application {
 
-    private static final Config config = Config.load();
+    private final Config config;
+
+    public Application(String path) throws IOException {
+        this.config = Config.load(path);
+    }
 
     @EventMapping
     public Message handle(MessageEvent<TextMessageContent> event) {

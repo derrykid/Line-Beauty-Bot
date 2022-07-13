@@ -9,15 +9,20 @@ import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.message.ImageMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LineServerInteractor {
+
+    private LineServerInteractor() {
+    }
 
     /**
      * Return a client that can send message to Line Server
@@ -32,8 +37,8 @@ public class LineServerInteractor {
     /**
      * Send text message to the target
      *
-     * @param config: token and secrets
-     * @param group: the target chat
+     * @param config:      token and secrets
+     * @param group:       the target chat
      * @param textMessage: the message to be sent
      */
     public static void sendTextMessage(Config config, Group group, TextMessage textMessage) {
@@ -45,9 +50,9 @@ public class LineServerInteractor {
      * Send pictures to Chat room
      *
      * @param linkMap: Map view of key being "beauty", "instagram", and "post", respond values are
-     *     the links
-     * @param config: config token, secrets
-     * @param group: the chat room unique id
+     *                 the links
+     * @param config:  config token, secrets
+     * @param group:   the chat room unique id
      */
     public static void sendImageMessage(Map<String, Link> linkMap, Config config, Group group) {
         LineMessagingClient client = getClient(config);
@@ -81,7 +86,7 @@ public class LineServerInteractor {
      * User can only push a message of size 5 at a time, this method is help to aid to slice the
      * list of message to the size we desire
      *
-     * @param collection, list of messages
+     * @param collection,    list of messages
      * @param partitionSize, the size we want
      * @return generic List of lists
      */

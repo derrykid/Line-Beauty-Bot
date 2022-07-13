@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Routine {
 
-    private static ScheduledExecutorService routineService =
+    private Routine() {}
+
+    private static final ScheduledExecutorService routineService =
             Executors.newSingleThreadScheduledExecutor();
 
     /**
@@ -23,8 +25,4 @@ public class Routine {
         routineService.scheduleAtFixedRate(runnable, 0, period, timeUnit);
     }
 
-    private static void onShutDown() {
-        routineService.shutdown();
-        log.info("Shutdown executor service");
-    }
 }

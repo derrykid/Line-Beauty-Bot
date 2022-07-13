@@ -22,6 +22,7 @@ public class PttBeautyService implements Service {
     @Getter private final Config config;
     private final URI beautyForumUri;
     private final String previousPageSelector;
+    private static final String COOKIE = "over18";
 
     public PttBeautyService(Config config) {
         this.config = config;
@@ -37,7 +38,7 @@ public class PttBeautyService implements Service {
      * @throws IOException
      */
     public Map<String, Link> getLinkMap() throws IOException {
-        Document indexDoc = Jsoup.connect(beautyForumUri.toString()).cookie("over18", "1").get();
+        Document indexDoc = Jsoup.connect(beautyForumUri.toString()).cookie(COOKIE, "1").get();
 
         Set<Element> scrapElements = getElementsOfBeauty(indexDoc, new HashSet<>());
 
@@ -46,7 +47,7 @@ public class PttBeautyService implements Service {
         String targetPostLink = linksSortByLikes.first();
 
         List<String> linksInPost =
-                fetchLinks(Jsoup.connect(targetPostLink).cookie("over18", "1").get());
+                fetchLinks(Jsoup.connect(targetPostLink).cookie(COOKIE, "1").get());
 
         return getLinkMap(linksInPost, targetPostLink);
     }
@@ -113,7 +114,7 @@ public class PttBeautyService implements Service {
         }
 
         Document previousPageDoc =
-                Jsoup.connect(getPreviousPageLink(document)).cookie("over18", "1").get();
+                Jsoup.connect(getPreviousPageLink(document)).cookie(COOKIE, "1").get();
 
         return getElementsOfBeauty(previousPageDoc, elementSet);
     }
