@@ -19,7 +19,7 @@ public class Routine {
      * @param period: number of length
      * @param timeUnit: time unit, e.g. hours, mins
      */
-    static void registerRoutine(Runnable runnable, int period, TimeUnit timeUnit) {
+    static void registerRoutine(Runnable runnable, long period, TimeUnit timeUnit) {
         routineService.scheduleAtFixedRate(runnable, 0, period, timeUnit);
     }
 

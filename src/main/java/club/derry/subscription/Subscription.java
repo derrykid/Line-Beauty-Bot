@@ -25,7 +25,7 @@ public class Subscription {
         if (group.getSubscriptions().contains(service)) {
             return false;
         }
-        Routine.registerRoutine(new PttTask(group, service), 0, TimeUnit.HOURS);
+        Routine.registerRoutine(new PttTask(group, service), 24, TimeUnit.HOURS);
         return group.subscribe(service);
     }
 }
