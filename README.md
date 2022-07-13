@@ -25,5 +25,20 @@ This guide shows you how to deploy a sample-echo bot. Follow the steps.
 
 ---
 
-### Bot QR code
+## How to use?
+
+### Line
+
+After deploy this bot, in a group room, please type `/subscribe`, this will send the request to the bot and the bot will push the message to the Line server, the Line server will then push the message to the group chat.
+
+### Use as API
+
+[API](https://send-beauty-bot.herokuapp.com/) 
+
+Click the api link will send a request to the heroku server. In response, you will get a map view of:
+1. beauty image links
+2. origin post url
+3. instagram link (if origin post provides)
+
+## Bot QR code - demo
 ![QR-Code](./qr-code.png) 
