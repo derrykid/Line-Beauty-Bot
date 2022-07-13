@@ -12,6 +12,7 @@ import java.io.IOException;
 public class SpringBootApp {
 
     public static void main(String[] args) {
+
         SpringApplication.run(SpringBootApp.class, args);
 
         String path = "src/main/resources/application.yml";
