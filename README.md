@@ -1,3 +1,11 @@
+# Line-Beauty-Bot
+
+![Java](https://img.shields.io/badge/Java-17-ff696c)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=derrykid_Line-Beauty-Bot&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=derrykid_Line-Beauty-Bot)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=derrykid_Line-Beauty-Bot&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=derrykid_Line-Beauty-Bot) 
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=derrykid_Line-Beauty-Bot&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=derrykid_Line-Beauty-Bot)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=derrykid_Line-Beauty-Bot&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=derrykid_Line-Beauty-Bot)
+
 ## what this bot does:
 This Line bot goes to Ptt beauty and get the post from yesterday that receives most likes. It works on schedule.
 
