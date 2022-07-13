@@ -23,5 +23,7 @@ If you don't know how to do this, please follow the instruction provides here: [
 
 This guide shows you how to deploy a sample-echo bot. Follow the steps.
 
-**Bot QR code** 
-![Line bot QR code](https://qr-official.line.me/sid/L/459sczab.png) 
+---
+
+### Bot QR code
+![QR-Code](./qr-code.png) 
