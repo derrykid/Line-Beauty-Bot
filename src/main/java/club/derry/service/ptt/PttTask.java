@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  * </ol>
  */
 @Slf4j
-public class PttTask implements Runnable {
+public class PttTask implements Runnable, Task {
 
     private final Service service;
     private final Config config;

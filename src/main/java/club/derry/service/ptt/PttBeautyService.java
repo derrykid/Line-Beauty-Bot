@@ -3,27 +3,35 @@ package club.derry.service.ptt;
 
 import club.derry.Link;
 import club.derry.config.Config;
+import club.derry.config.PttConfig;
 import club.derry.service.ptt.functionalinterface.*;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
+
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 
-/** This class is responsible for getting a List of URI from yesterday posts. */
+/**
+ * This class is responsible for getting a List of URI from yesterday posts.
+ */
 @Slf4j
 public class PttBeautyService implements Service {
 
-    @Getter private final Config config;
+    @Getter
+    private Config config;
     private final URI beautyForumUri;
     private final String previousPageSelector;
     private static final String COOKIE = "over18";
 
+    @Autowired
     public PttBeautyService(Config config) {
         this.config = config;
         this.beautyForumUri = config.getPttConfig().getBeautyForumConfig().getUri();
@@ -54,7 +62,7 @@ public class PttBeautyService implements Service {
 
     /**
      * @param linksInPost: all links in the post, includes image links, post links, comment section
-     *     links
+     *                     links
      * @param thePostLink: post links
      * @return Map view of beauty image links, instagram links (if exist), post url
      */
@@ -92,7 +100,7 @@ public class PttBeautyService implements Service {
      * previous page, collect posts that were posted on 7/10. It'll stop when <b>the post date is
      * 7/9.</b>
      *
-     * @param document, index document
+     * @param document,   index document
      * @param elementSet, the set that save all the element (include title, date, links, etc)
      * @return the set of desired elements (include title, date, links, etc)
      * @throws IOException
@@ -140,7 +148,7 @@ public class PttBeautyService implements Service {
     /**
      * @param divElements
      * @return true when the post date wasn't yesterday <br>
-     *     false means we're still on the page where posts are today's
+     * false means we're still on the page where posts are today's
      */
     private boolean shallReturn(Elements divElements) {
         return divElements.stream()

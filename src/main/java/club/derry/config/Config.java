@@ -5,18 +5,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Getter
 public class Config {
-
 
     private final LineConfig lineConfig;
     private final PttConfig pttConfig;

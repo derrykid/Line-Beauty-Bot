@@ -15,9 +15,8 @@ public class PttConfig {
     private final BeautyForumConfig beautyForumConfig;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    private PttConfig(
-            @JsonProperty("base-url") String baseUrl,
-            @JsonProperty("beauty-forum") BeautyForumConfig beautyForumConfig) {
+    private PttConfig(@JsonProperty("base-url") String baseUrl,
+                      @JsonProperty("beauty-forum") BeautyForumConfig beautyForumConfig) {
         this.baseUrl = baseUrl;
         this.beautyForumConfig = beautyForumConfig;
     }

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,24 +27,32 @@ import org.springframework.web.bind.annotation.RestController;
 @LineMessageHandler
 @Slf4j
 @RestController
-public class Application {
+public final class Application {
 
     private final Config config;
+    private final ObjectMapper objectMapper;
+    private final PttBeautyService pttBeautyService;
 
-    public Application(String path) throws IOException {
-        this.config = Config.load(path);
+    @Autowired
+    public Application(Config config, ObjectMapper objectMapper) {
+        this.config = config;
+        this.objectMapper = objectMapper;
+        this.pttBeautyService = new PttBeautyService(config);
     }
 
     @EventMapping
-    public Message handle(MessageEvent<TextMessageContent> event) {
+    public Message handleLineCommand(MessageEvent<TextMessageContent> event) {
         log.info("event: {}", event);
 
-        String groupId = event.getSource().getSenderId();
         String text = event.getMessage().getText();
 
         if (text.toLowerCase().contains("/subscribe")) {
+
+            String groupId = event.getSource().getSenderId();
+
             boolean isSuccess =
-                    Subscription.subscribeService(new Group(groupId), new PttBeautyService(config));
+                    Subscription.subscribeService(new Group(groupId), pttBeautyService);
+
             return isSuccess ? new TextMessage("Subscribe!") : null;
         }
         return null;
@@ -51,9 +60,9 @@ public class Application {
 
     @GetMapping
     public String getRequest() throws IOException {
-        PttBeautyService pttBeautyService = new PttBeautyService(config);
+
         Map<String, Link> linkMap = pttBeautyService.getLinkMap();
 
-        return new ObjectMapper().writeValueAsString(linkMap);
+        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(linkMap);
     }
 }
